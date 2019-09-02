@@ -1,2 +1,2 @@
-export const GET_URL = '../api/list.json'
+export const GET_URL = 'api/list.json'
 

@@ -1,8 +1,9 @@
 import $ from "jquery"
-import {GET_URL} from "./../config/config"
+import {GET_URL} from "../config/config"
+import createItem from "./createItem";
 export default class List{
     constructor(app){
-        this.$el = $("<div></div>");
+        this.$el = $("<div></div>")
         this.app = app;
     }
     init(){
@@ -15,17 +16,18 @@ export default class List{
             }
         })
     }
-    initItem(itemData){
-        itemData.forEach(data => {
-            // 创建Item
-        });
-    }
-    initList(){
-        this.app.$el.append(this.$el);
+    initItemList(data){
+        //创建 Item
+        data.map(itemData=>{
+            createItem(this,itemData);
+        })
     }
     render(){
         this.loadData().then(data=>{
-            this.initItem(data)
-        }).then()
+            // console.log(data);
+            this.initItemList(data);
+        }).then(data=>{
+            this.app.$el.append(this.$el);
+        })
     }
 }
