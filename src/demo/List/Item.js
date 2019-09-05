@@ -1,7 +1,7 @@
 import $ from "jquery"
-import getCart from "./../ShoppingCart/GetCart"
-import stateMachine from "javascript-state-machine"
-import { log } from "./../Util/log";
+import StateMachine from "javascript-state-machine";
+import getCart from "../ShoppingCart/GetCart";
+import log from "./../Util/log.js"
 export default class Item{
     constructor(list,data){
         this.$el = $("<div></div>")
@@ -16,60 +16,58 @@ export default class Item{
     }
     initContent(){
         let data = this.data;
-        this.$el.append(`<p>${data.name}</p>`)
-        this.$el.append(`<p>${data.price}</p>`)
-
+        this.$el.append($(`<p>${data.name}</p>`))
+        this.$el.append($(`<p>${data.price}</p>`))
     }
     initBtn(){
-        let $btn =  $("<button></button>")
+        let $btn = $("<button></button>")
         let _this = this;
-        let fsm = new stateMachine({
+        let fsm = new StateMachine({
             init:"加入购物车",
-            transitions:[
-                {
-                    name:"addToCart",
-                    from:"加入购物车",
-                    to:"从购物车删除"
-                },
-                {
-                    name:"deleteFromCart",
-                    from:"从购物车删除",
-                    to:"加入购物车"
-                },
-            ],
+            transitions:[{
+                name:"addToCart",
+                from:"加入购物车",
+                to:"从购物车删除"
+            },{
+                name:"deleteFromCart",
+                from:"从购物车删除",
+                to:"加入购物车"
+            }],
             methods:{
                 onAddToCart:function(){
                     _this.addToCartHandle(_this.data)
-                    updataText();
+                    updateText()
                 },
                 onDeleteFromCart:function(){
                     _this.deleteFromCartHandle(_this.data.id)
-                    updataText();
+                    updateText();
                 }
             }
         })
-        updataText();
-        function updataText(){
+        updateText();
+        function updateText(){
             $btn.text(fsm.state);
         }
         $btn.click(function(){
+            //涉及到状态模式
             if(fsm.is("加入购物车")){
-                fsm.addToCart()
+                fsm.addToCart();
             }else{
                 fsm.deleteFromCart();
             }
         })
         this.$el.append($btn);
     }
-    @log('add')
+    @log("add")
     addToCartHandle(data){
         this.cart.add(data);
     }
-    @log('delete')
+    @log("delete")
     deleteFromCartHandle(id){
-        this.cart.delete(id);
+        this.cart.del(id);
     }
     render(){
         this.list.$el.append(this.$el);
     }
+
 }

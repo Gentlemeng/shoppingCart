@@ -3,31 +3,30 @@ class Cart{
         this.list = [];
     }
     add(data){
-        this.list.push(data);
+        this.list.push(data)
     }
-    delete(id){
+    del(id){
         this.list = this.list.filter(data=>{
             if(data.id===id){
-                return false;
+                return false
             }else{
-                return true;
+                return true
             }
         })
     }
     getList(){
         return this.list.map(data=>{
             return data.name
-        }).join("\n")
+        }).join('\n')
     }
 }
 let getCart = (function(){
     let cart;
     return function(){
         if(!cart){
-            cart = new Cart()
+            cart = new Cart();
         }
-        return cart
+        return cart;
     }
 })()
-
 export default getCart;
