@@ -1,13 +1,15 @@
+import { get } from "http";
+
 class Cart{
     constructor(){
         this.list = [];
     }
     add(data){
-        this.list.push(data)
+        this.list.push(data);
     }
     del(id){
         this.list = this.list.filter(data=>{
-            if(data.id===id){
+            if(id===data.id){
                 return false
             }else{
                 return true
@@ -15,11 +17,12 @@ class Cart{
         })
     }
     getList(){
-        return this.list.map(data=>{
+        return this.list.map(data => {
             return data.name
-        }).join('\n')
+        }).join("\n")
     }
 }
+
 let getCart = (function(){
     let cart;
     return function(){
@@ -28,5 +31,5 @@ let getCart = (function(){
         }
         return cart;
     }
-})()
+})();
 export default getCart;

@@ -1,10 +1,10 @@
 import $ from "jquery"
 import { GET_URL } from "../config/config";
-import createItem from "./createItem";
+import { createItem } from "./createItem";
 
 export default class List{
     constructor(app){
-        this.$el =  $("<div></div>")
+        this.$el = $("<div></div>")
         this.app = app;
     }
     init(){
@@ -23,12 +23,13 @@ export default class List{
         })
     }
     initItemList(data){
-        data.forEach(itemData => {
-            //创建 Item
-            createItem(this,itemData);
+        data.forEach(data => {
+            // 创建 Item
+            createItem(this,data)
         });
     }
     render(){
+        // debugger
         this.app.$el.append(this.$el);
     }
 }

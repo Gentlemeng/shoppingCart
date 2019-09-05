@@ -3,7 +3,7 @@ import getCart from "./GetCart";
 export default class ShoppingCart{
     constructor(app){
         this.$el = $("<button>购物车</button>")
-        this.app = app
+        this.app = app;
         this.cart = getCart();
     }
     init(){
@@ -15,7 +15,6 @@ export default class ShoppingCart{
         this.$el.click(function(){
             _this.showCart();
         })
-        
     }
     showCart(){
         let log = this.cart.getList();

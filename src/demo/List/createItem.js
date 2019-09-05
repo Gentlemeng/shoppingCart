@@ -6,13 +6,13 @@ function createData(data){
                 return target[key]+"【折扣】"
             }
             if(key==="price"){
-                return target[key]*0.8;
+                return target[key]*0.1
             }
             return target[key]
         }
     })
 }
-export default function createItem(list,data){
+export function createItem(list,data){
     if(data.discount){
         data = createData(data);
     }

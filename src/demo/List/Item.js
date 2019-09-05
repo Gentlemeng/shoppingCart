@@ -1,7 +1,7 @@
 import $ from "jquery"
-import StateMachine from "javascript-state-machine";
+import StateMachine from "javascript-state-machine"
 import getCart from "../ShoppingCart/GetCart";
-import log from "./../Util/log.js"
+import { log } from "../Util/log";
 export default class Item{
     constructor(list,data){
         this.$el = $("<div></div>")
@@ -12,12 +12,12 @@ export default class Item{
     init(){
         this.initContent();
         this.initBtn();
-        this.render();
     }
     initContent(){
         let data = this.data;
-        this.$el.append($(`<p>${data.name}</p>`))
-        this.$el.append($(`<p>${data.price}</p>`))
+        this.$el.append(`<p>${data.name}</p>`)
+        this.$el.append(`<p>${data.price}</p>`)
+        this.list.$el.append(this.$el);
     }
     initBtn(){
         let $btn = $("<button></button>")
@@ -27,19 +27,19 @@ export default class Item{
             transitions:[{
                 name:"addToCart",
                 from:"加入购物车",
-                to:"从购物车删除"
+                to:"从购物车删除",
             },{
                 name:"deleteFromCart",
                 from:"从购物车删除",
-                to:"加入购物车"
+                to:"加入购物车",
             }],
             methods:{
                 onAddToCart:function(){
-                    _this.addToCartHandle(_this.data)
-                    updateText()
+                    _this.addToCartHandle(_this.data);
+                    updateText();
                 },
                 onDeleteFromCart:function(){
-                    _this.deleteFromCartHandle(_this.data.id)
+                    _this.deleteFromCartHandle(_this.data.id);
                     updateText();
                 }
             }
@@ -49,7 +49,6 @@ export default class Item{
             $btn.text(fsm.state);
         }
         $btn.click(function(){
-            //涉及到状态模式
             if(fsm.is("加入购物车")){
                 fsm.addToCart();
             }else{
@@ -67,7 +66,6 @@ export default class Item{
         this.cart.del(id);
     }
     render(){
-        this.list.$el.append(this.$el);
-    }
 
+    }
 }
